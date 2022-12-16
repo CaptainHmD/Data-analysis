@@ -16,7 +16,6 @@ sheet.write(0, 2, "Retweets")
 sheet.write(0, 3, "Account")
 sheet.write(0, 4, "Date")
 sheet.write(0, 5, "Hashtag")
-counter = 0
 
 
 def scrape(Hashtag):
@@ -39,8 +38,6 @@ def scrape(Hashtag):
 
 
 def writeToXl(content, likes, retweets, account, date, hashtag, i):
-    global counter
-    counter+=1
     string = content.encode("utf8")
     sheet.write(i + 1, 0, string.decode("utf-8"))
     sheet.write(i + 1, 1, likes)
