@@ -1,3 +1,8 @@
+//! requirement 
+
+//! you must name the excel file: Tweets
+//! and the name of the main page must be: page
+
 const fs = require('fs')
 const XLSX = require('xlsx')
 const jsontoxml = require('jsontoxml')
