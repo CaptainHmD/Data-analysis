@@ -104,6 +104,6 @@ dist
 .tern-port
 
 
-.xlsx
+*.xlsx
 
 .vscode
