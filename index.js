@@ -9,6 +9,7 @@ const jsontoxml = require('jsontoxml')
 
 
 const workBook = XLSX.readFile('test.xlsx')
+const workBook2 = XLSX.readFile('test4.xlsx')
 // console.log(workBook);
 const worksheets = {};
 var counter = 0;
@@ -38,6 +39,7 @@ for (const sheetName of workBook.SheetNames) {
 //     console.log(worksheets.page[0]);
 // }
 // console.log(worksheets.page[0]);
+console.log(worksheets.page[0]);
  delete worksheets.page[0]
  console.log(worksheets.page[0]);
 jsontoxml({
@@ -73,5 +75,6 @@ console.log(worksheets.page[0]);
 
 
 // update the xslx files
-XLSX.utils.sheet_add_json(workBook.Sheets["page"], worksheets.page)
-XLSX.writeFile(workBook, "test4.xlsx")
+//! the filter will not work if there is a data in the file sheet , the header are requirement for range 
+XLSX.utils.sheet_add_json(workBook2.Sheets["page"], worksheets.page)
+XLSX.writeFile(workBook2, "test4.xlsx")
