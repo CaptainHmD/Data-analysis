@@ -6,14 +6,14 @@
 const XLSX = require('xlsx')
 const jsontoxml = require('jsontoxml')
 //! files
-const tweetsFileName = 'Tweets'
+const tweetsFileName = 'test'
 const emptyFileName = 'emptyExcelFile'
 const workBook = XLSX.readFile(`${tweetsFileName}.xlsx`)
 const workBook2 = XLSX.readFile(`${emptyFileName}.xlsx`)//for range 
 const worksheets = {}; //will store the data in object format
 
 //!filtration keyword 
-const filtrationKeywords = "شيخ"
+const filtrationKeywords = "اسفار"
 
 let matchCounter = 0;
 var counter = 0;
@@ -30,7 +30,7 @@ jsontoxml({
             return
         }
         if(filtrationViaKeyword(data)){
-            delete worksheets.page[counter]
+            // delete worksheets.page[counter]
             matchCounter++ // to count the matched tweets
             counter++ // increase counter for next object
             return
@@ -69,7 +69,7 @@ function filtrationViaKeyword(tweeth){
 // update the xslx files
 //! the filter will not work if there is a data in the file sheet that you will write in , just empty file or you can add headers , it`s optional BTW   
 XLSX.utils.sheet_add_json(workBook2.Sheets["page"], worksheets.page)
-XLSX.writeFile(workBook2, "filteredTweets.xlsx")
+XLSX.writeFile(workBook2, "test4.xlsx")
 console.log('matchCounter: ',matchCounter);
 console.log('Done');
 

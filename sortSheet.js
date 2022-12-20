@@ -6,37 +6,19 @@
 const XLSX = require('xlsx')
 const jsontoxml = require('jsontoxml')
 //! files
-const tweetsFileName = 'Tweets'
+const tweetsFileName = 'filteredTweets'
 const emptyFileName = 'emptyExcelFile'
 const workBook = XLSX.readFile(`${tweetsFileName}.xlsx`)
 const workBook2 = XLSX.readFile(`${emptyFileName}.xlsx`)//for range 
 const worksheets = {}; //will store the data in object format
 
-//!filtration keyword 
-const filtrationKeywords = "شيخ"
 
-let matchCounter = 0;
-var counter = 0;
 for (const sheetName of workBook.SheetNames) {
     worksheets[sheetName] = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName])
 }
 
-
-var counter = 0;
 jsontoxml({
     worksheets: JSON.parse(JSON.stringify(Object.values(worksheets))).map(worksheet => worksheet.map(data => {
-        if (!data) {
-            counter++// increase counter for next object
-            return
-        }
-        if(filtrationViaKeyword(data)){
-            delete worksheets.page[counter]
-            matchCounter++ // to count the matched tweets
-            counter++ // increase counter for next object
-            return
-        }
-
-        counter++// increase counter for next object
         for (property in data) {
             const newPropertyName = property.replace(/\s/g, "");
             if (property !== newPropertyName) {
@@ -48,14 +30,6 @@ jsontoxml({
         return data;
     }))
 }, {})
-function filtrationViaKeyword(tweeth){
-    const tweet = tweeth.Tweet + ""// convert to String to use includes method
-    if (tweet.includes( filtrationKeywords )) { // search for keyword
-        delete worksheets.page[counter]// if matched clear the tweet
-        return true
-    }
-    return false
-}
 // worksheets.page.push({
 //     "Tweet": "new",
 //     "Likes": 727,
@@ -66,12 +40,16 @@ function filtrationViaKeyword(tweeth){
 // })
 
 
+// console.log(worksheets.page[0]);
+
+
 // update the xslx files
 //! the filter will not work if there is a data in the file sheet that you will write in , just empty file or you can add headers , it`s optional BTW   
 XLSX.utils.sheet_add_json(workBook2.Sheets["page"], worksheets.page)
-XLSX.writeFile(workBook2, "filteredTweets.xlsx")
-console.log('matchCounter: ',matchCounter);
-console.log('Done');
+XLSX.writeFile(workBook2, "Tweets.xlsx")
+console.log("Done");
+
 
 
 //TODO: update main file after filtering
+//TODO: 

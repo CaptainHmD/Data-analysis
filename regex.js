@@ -13,7 +13,8 @@ const workBook2 = XLSX.readFile(`${emptyFileName}.xlsx`)//for range
 const worksheets = {}; //will store the data in object format
 
 //!filtration keyword 
-const filtrationKeywords = "شيخ"
+const regex = / www /;
+
 
 let matchCounter = 0;
 var counter = 0;
@@ -30,7 +31,7 @@ jsontoxml({
             return
         }
         if(filtrationViaKeyword(data)){
-            delete worksheets.page[counter]
+            // delete worksheets.page[counter]
             matchCounter++ // to count the matched tweets
             counter++ // increase counter for next object
             return
@@ -50,7 +51,7 @@ jsontoxml({
 }, {})
 function filtrationViaKeyword(tweeth){
     const tweet = tweeth.Tweet + ""// convert to String to use includes method
-    if (tweet.includes( filtrationKeywords )) { // search for keyword
+    if (tweet.match(regex)) { // search for keyword
         delete worksheets.page[counter]// if matched clear the tweet
         return true
     }
