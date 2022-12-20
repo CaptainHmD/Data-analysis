@@ -75,6 +75,6 @@ console.log(worksheets.page[0]);
 
 
 // update the xslx files
-//! the filter will not work if there is a data in the file sheet , the header are requirement for range 
+//! the filter will not work if there is a data in the file sheet that you will write in , just empty file or you can add headers , it`s optional BTW   
 XLSX.utils.sheet_add_json(workBook2.Sheets["page"], worksheets.page)
 XLSX.writeFile(workBook2, "test4.xlsx")
